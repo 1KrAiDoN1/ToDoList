@@ -1,0 +1,8 @@
+docker pull postgres
+docker run --name=todo-db -e POSTGRES_PASSWORD='admin' -p 5436:5432 -d --rm postgres
+docker ps
+brew install golang-migrate
+migrate create -ext sql -dir ./schema -seq init
+migrate -path ./schema -database 'postgres://postgres:admin@localhost:5436/postgres?sslmode=disable' up
+docker exec -it todo-db /bin/bash  // подключение к контейнеру
+psql -U postgres
